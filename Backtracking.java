@@ -12,5 +12,6 @@ public class Backtracking {
         if (isValid(node, color)) {
           x [node] = color;
         }
-        if (
+        if ((node + 1) < n)
+          GraphColor(
 }
