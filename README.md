@@ -1,6 +1,6 @@
 # GROUP09_2020
 
-##Guide on how to use the helper function file:
+## Guide on how to use the helper function file:
 HelperFunction.java contains cleaned up versions of the functions to compute the adjacency matrix and
 the list with the degrees for each node. This way our code can be kept cleaner.
 
