@@ -18,6 +18,12 @@ public class HelperFunctions {
     return adj_matrix;
   }
 
+  /**
+  This function returns a list of degrees for each node, where the index is the
+  corresponding node/vertex
+  @param a The adjacency matrix, represented by a 2D-array, can be computed using the <i>getAdjacencyMatrix</i> method
+  @return List of degrees
+  */
   public static int[] getDegrees(int[][] a) {
     int[] degrees = new int[a.length];
     for(int i = 0; i < a.length; i++) {
@@ -28,5 +34,20 @@ public class HelperFunctions {
       }
     }
     return degrees;
+  }
+
+  /**
+  Custom max function for any 1D-array of arbitrary length
+  @param arr <i>Array to compute the max of</i>
+  @return Maximum int value for the given array
+  */
+  public static int getMax(int[] arr) {
+    int record = 0;
+    for(int i = 0; i < arr.length; i++) {
+      if(arr[i] > record) {
+        record = arr[i];
+      }
+    }
+    return record;
   }
 }
