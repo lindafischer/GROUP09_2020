@@ -18,20 +18,20 @@ public class Backtracking {
 	}
 	  
 	int [] colors = new int [n];
-	for (int k = 0; k <= n; k++) { // k = current index to test
+	for (int k = 1; k <= n; k++) { // k = current index/vertix to test
 		int ChromaticNumber = GraphColoring(adj_matrix, k, colors, n)
 	}
 			
 public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) {
-	for (int c = 1; c <= m; c++) { 
-		if (isValid(adj_matrix, k, colors, n)) { 
-			colors[k] = c; 
+	for (int c = 1; c <= m; c++) {  // c = current color to test
+		if (isValid(adj_matrix, k, colors, n)) { // check if the color can be used
+			colors[k] = c; // assign the color to the index
 		}
-		if ((k+1) < n) {
-			GraphColoring(adj_matrix, k+1, colors, n);
+		if ((k+1) < n) { //check if the next index is less than the number of veritces
+			GraphColoring(adj_matrix, k+1, colors, n); // recursive call for the next index
 		}
 		else {
-		// length of the filled part of the array colors = chromatic number 
+		// I don't know how to get the length of the filled part of the array colors, which will be equel to the chromatic number - 1
 		return ChromaticNumber;
 		}
 	}
@@ -40,7 +40,7 @@ public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) 
 			
 public static boolean isValid (int adj_matrix[][], int k, colors[], int n) {
 	for (int i = 0; i < n; i++) {
-		if (adj_matrix[k][i] == 1 && c == x[i]) {
+		if (adj_matrix[k][i] == 1 && c == x[i]) { // check if there is an edge between the vertices && if the color was already assigned to the vertix nearby 
 			return false;
 		}
 	}
