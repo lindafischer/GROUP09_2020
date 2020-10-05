@@ -1,3 +1,11 @@
+//! At this point e[0] will be the first edge, with e[0].u referring to one endpoint and e[0].v to the other
+//! e[1] will be the second edge...
+//! (and so on)
+//! e[m-1] will be the last edge
+//! 
+//! there will be n vertices in the graph, numbered 1 to n
+
+//! INSERT YOUR CODE HERE!
 public class Backtracking {
   public static void main (String[] args) {
   	int [][] adj_matrix= new int[n+1][n+1];
