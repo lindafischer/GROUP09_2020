@@ -34,16 +34,13 @@ public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) 
 	for (int c = 1; c <= n; c++) {  // c = current color to test
 		if (isValid(adj_matrix, k, colors, n)) { // check if the color can be used
 			colors[k] = c; // assign the color to the index
-		}
-		if ((k+1) < n) { //check if the next index is less than the number of veritces
+		
+		if ((k+1) < n) { //check if the next index is less than the number of veritices
 			GraphColoring(adj_matrix, k+1, colors, n); // recursive call for the next index
+		else
+			return ColorsNumbers.length
+			
 		}
-		else {
-		// I don't know how to get the length of the filled part of the array colors, which will be equel to the chromatic number - 1
-		return ChromaticNumber;
-		}
-	}
-	return 0;
 }
 			
 public static boolean isValid (int adj_matrix[][], int k, colors[], int n) {
@@ -54,3 +51,16 @@ public static boolean isValid (int adj_matrix[][], int k, colors[], int n) {
 	}
 	return true;
 }
+		
+public static void print (int [] colors) {
+	int [] ColorsNumbers = new int [];
+	for (int i = 0; i < colors.length; i++) {
+		if (colors[i] != 0) 
+		Colorsnumbers[i] = colors[i];
+	}
+}
+		
+		
+		
+		
+		
