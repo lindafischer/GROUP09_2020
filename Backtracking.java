@@ -31,7 +31,7 @@ public class Backtracking {
 	}
 			
 public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) {
-	for (int c = 1; c <= m; c++) {  // c = current color to test
+	for (int c = 1; c <= n; c++) {  // c = current color to test
 		if (isValid(adj_matrix, k, colors, n)) { // check if the color can be used
 			colors[k] = c; // assign the color to the index
 		}
