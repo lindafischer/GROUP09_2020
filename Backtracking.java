@@ -46,7 +46,7 @@ public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) 
 			
 public static boolean isValid (int adj_matrix[][], int k, colors[], int n) {
 	for (int i = 0; i < n; i++) {
-		if (adj_matrix[k][i] == 1 && c == x[i]) { // check if there is an edge between the vertices && if the color was already assigned to the vertix nearby 
+		if (adj_matrix[k][i] == 1 && c == colors[i]) { // check if there is an edge between the vertices && if the color was already assigned to the vertix nearby 
 			return false;
 		}
 	}
