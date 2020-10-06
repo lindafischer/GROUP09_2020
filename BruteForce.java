@@ -1,9 +1,18 @@
 public class BruteForce {
   public static long startTime;
-  public static int ExactChromNumber(int n,int [] colors,int[][] adj_matrix){
+
+  /**
+  This function tries to compute the exact chromatic number by brute forcing all possible colorings.
+  @param n Number of vertices
+  @param adj_matrix The adjacency matrix
+  @param timeLimit The wanted timeLimit which should not be exceeded
+  @return The exact chromatic number or -1 if the brute forcing attempt took more than 30 seconds.
+  */
+  public static int ExactChromNumber(int n, int[][] adj_matrix, int timeLimit){
+    int[] colors = new int[n];
     startTime = System.nanoTime();
     for(int i = 1; i <= n; i++) { // colors from 1 to n
-      int temp = Colorings(1,i,colors,n,adj_matrix);
+      int temp = Colorings(1,i,colors,n,adj_matrix, timeLimit);
       if(temp == 1) { // if graph can be colored using i colors starting at vertex 0
         return i;
       }
@@ -13,10 +22,19 @@ public class BruteForce {
     }
     return 1; // program will never get to this line
   }
-  //colors graph using m colors starting at vertex v
-  public static int Colorings(int v, int m,int [] colors,int n,int [][]adj_matrix) {
+
+  /**
+  This function colors the graph using m colors starting at vertex v
+  @param v int, the current vertex
+  @param m The number of colors
+  @param n The number of vertices
+  @param adj_matrix The adjacency matrix
+  @param timeLimit The wanted timeLimit which should not be exceeded
+  @return 1 if a coloring is possible, 0 if not and -1 if the time limit is exceeded
+  */
+  public static int Colorings(int v, int m, int[] colors,int n,int[][] adj_matrix, int timeLimit) {
     double elapsedTime = (System.nanoTime() - startTime) / 1000000000;
-    if(elapsedTime > 30) {
+    if(elapsedTime > timeLimit) {
       return -1;
     }
     if(v > n-1) { //if all vertices have been colored
@@ -35,7 +53,7 @@ public class BruteForce {
         }
 
         if(match == false) { // if they are not adjacient
-          if(Colorings(v+1,m,colors,n,adj_matrix) == 1) // use recursion for the next vertex
+          if(Colorings(v+1,m,colors,n,adj_matrix, timeLimit) == 1) // use recursion for the next vertex
           return 1;
 
         }
