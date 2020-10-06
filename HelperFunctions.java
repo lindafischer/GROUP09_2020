@@ -107,4 +107,14 @@ public class HelperFunctions {
     int[] deg = getDegrees(arr);
     return getMax(deg) + 1;
   }
+
+  /**
+  This function returns the most trivial lower bound (1 if the graph consists of only 1 node, 2 if more)
+  @param n Number of vertices
+  @return Trivial lower bound
+  */
+  public static int getTrivialLowerBound(int n) {
+    if(n == 1) return 1;
+    else return 2;
+  }
 }
