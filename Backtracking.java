@@ -26,9 +26,8 @@ public class Backtracking {
 	}
 	  
 	int [] colors = new int [n];
-	for (int k = 1; k <= n; k++) { // k = current index/vertix to test
-		int ChromaticNumber = GraphColoring(adj_matrix, k, colors, n)
-	}
+	int k = 1; // k = current index/vertix to test
+	int ChromaticNumber = GraphColoring(adj_matrix, k, colors, n)
 			
 public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) {
 	for (int c = 1; c <= n; c++) {  // c = current color to test
@@ -44,7 +43,7 @@ public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) 
 	return ChromaticNumber;
 }
 			
-public static boolean isValid (int adj_matrix[][], int k, colors[], int n) {
+public static boolean isValid (int adj_matrix[][], int k, int colors[], int n) {
 	for (int i = 0; i < n; i++) {
 		if (adj_matrix[k][i] == 1 && c == colors[i]) { // check if there is an edge between the vertices && if the color was already assigned to the vertix nearby 
 			return false;
