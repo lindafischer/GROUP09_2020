@@ -97,4 +97,14 @@ public class HelperFunctions {
     }
     return recursiveTwoDSortHelper(arr);
   }
+
+  /**
+  This function returns the trivial upper bound
+  @param arr Adjacency Matrix for a graph
+  @return Trivial upper bound (MaxDegree + 1)
+  */
+  public static int getTrivialUpperBound(int[][] arr) {
+    int[] deg = getDegrees(arr);
+    return getMax(deg) + 1;
+  }
 }
