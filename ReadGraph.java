@@ -121,10 +121,9 @@ public class ReadGraph
 		//!
 		//! there will be n vertices in the graph, numbered 1 to n
 		HelperFunctions HF = new HelperFunctions();
-		int[] colors = new int[n];
 		int[][] res = HF.getAdjacencyMatrix(e, m, n);
 		int[] deg = HF.getDegrees(res);
-		DSatur test = new DSatur();
+		DSatur ds = new DSatur();
 		BruteForce bf = new BruteForce();
 		boolean debugthis = true;
 		if(debugthis) {
@@ -132,12 +131,15 @@ public class ReadGraph
 		System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
 		System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
 		long start = System.nanoTime();
-		System.out.println("DSatur upper bound: " + test.run(deg, res));
+		System.out.println("DSatur upper bound: " + ds.run(deg, res));
 		long end = System.nanoTime();
 		double duration = (end - start) / 1000000000;
 		System.out.println("Time needed for DSatur: " + duration + " seconds");
-		System.out.println("Attempting brute force search...");
-		int bfResult = bf.ExactChromNumber(n, colors, res);
+		System.out.print("How long do you want to attempt brute-forcing? (in seconds): ");
+		Scanner in = new Scanner(System.in);
+		int timeLimit = in.nextInt();
+		System.out.println("Attempting brute force search for " + timeLimit + " seconds...");
+		int bfResult = bf.ExactChromNumber(n, res, timeLimit);
 		if(bfResult == -1) {
 			System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
 		}
