@@ -127,3 +127,4 @@ public class ReadGraph
 			System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
 		}
 	}
+}
