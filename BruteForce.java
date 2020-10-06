@@ -5,7 +5,7 @@
 // int [][] adj_matrix = adjacency matrix
 
 //colors graph using minimum number of colors, returns chromatic number
-static int ExactChromaticNumber(){ 
+static int ExactChromaticNumber(int n, int [] colors){ 
     for(int i = 1; i <= n; i++) { // colors from 1 to n
         if(color(1,i)){ // if graph can be colored using i colors starting at vertex 0
             return i;
@@ -13,9 +13,9 @@ static int ExactChromaticNumber(){
 	}
     return i; // program will never get to this line
 }
-
+ colors
 //colors graph using m colors starting at vertex v
-static boolean Colorings(int v, int m) {
+static boolean Colorings(int v, int m, int [] colors) {
 	if(v > n-1) { //if all vertices have been colored
         return true;
 	}
@@ -25,7 +25,7 @@ static boolean Colorings(int v, int m) {
 			q[v-1] = i; //assign color i to vertex v
 
 			for(int j = 1; j < n; j++) {
-				if(adj_matrix[v-1][j-1] == 1) { // if the current vertex is adjacient with all other vertices
+				if(HF.[v-1][j-1] == 1) { // if the current vertex is adjacient with all other vertices
 					if(i == colors[j-1]) // if it is, check if they have the same color 
                     				match = true; 
                 		}
