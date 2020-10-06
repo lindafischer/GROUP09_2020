@@ -10,7 +10,7 @@ class ColEdge
 public class ReadGraph
 {
 
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 
 	public final static String COMMENT = "//";
 
@@ -125,6 +125,7 @@ public class ReadGraph
 		boolean debugthis = true;
 		if(debugthis) {
 			System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
+			System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(n));
 		}
 	}
 }
