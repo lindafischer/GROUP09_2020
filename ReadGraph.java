@@ -122,10 +122,17 @@ public class ReadGraph
 		//! there will be n vertices in the graph, numbered 1 to n
 		HelperFunctions HF = new HelperFunctions();
 		int[][] res = HF.getAdjacencyMatrix(e, m, n);
+		int[] deg = HF.getDegrees(res);
+		DSatur test = new DSatur();
 		boolean debugthis = true;
 		if(debugthis) {
-			System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
-			System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(n));
 		}
+		System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
+		System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
+		long start = System.nanoTime();
+		System.out.println("DSatur upper bound: " + test.run(deg, res));
+		long end = System.nanoTime();
+		double duration = (end - start) / 1000000000;
+		System.out.println("Time needed for DSatur: " + duration + " seconds");
 	}
 }
