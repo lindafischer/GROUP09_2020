@@ -35,11 +35,11 @@ public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) 
 		if (isValid(adj_matrix, k, colors, n)) { // check if the color can be used
 			colors[k] = c; // assign the color to the index
 		
-		if ((k+1) < n) { //check if the next index is less than the number of veritices
-			GraphColoring(adj_matrix, k+1, colors, n); // recursive call for the next index
-		else
-			int ChromaticNumber = ChromaticNumber(colors);
-			
+			if ((k+1) < n) { //check if the next index is less than the number of veritices
+				GraphColoring(adj_matrix, k+1, colors, n); // recursive call for the next index
+			} else { // if all the vertices have been assigned to a color
+				int ChromaticNumber = ChromaticNumber(colors); // then get the smallest number from the array of the colors
+			}	
 		}
 	return ChromaticNumber;
 }
