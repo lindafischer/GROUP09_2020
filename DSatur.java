@@ -19,6 +19,7 @@ public class DSatur {
   @return The estimated upper bound for the given graph
   */
   public static int run(int[] deg, int[][] adj) {
+    System.out.println("Running the DSatur algorithm to find an upper bound...");
     int[][] orderedVertices;
     int[] colors = new int[deg.length];
     for(int i = 0; i < colors.length; i++) {
