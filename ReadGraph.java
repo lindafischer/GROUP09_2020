@@ -136,6 +136,13 @@ public class ReadGraph
 		long end = System.nanoTime();
 		double duration = (end - start) / 1000000000;
 		System.out.println("Time needed for DSatur: " + duration + " seconds");
-		System.out.println("Result from brute force search: " + bf.ExactChromNumber(n, colors, res));
+		System.out.println("Attempting brute force search...");
+		int bfResult = bf.ExactChromNumber(n, colors, res);
+		if(bfResult == -1) {
+			System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
+		}
+		else {
+			System.out.println("Result from brute force search: " + bfResult);
+		}
 	}
 }
