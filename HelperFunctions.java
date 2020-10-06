@@ -50,4 +50,51 @@ public class HelperFunctions {
     }
     return record;
   }
+
+  /**
+  This functions prepares the given array for a 2-dimensional sorting
+  (Needed to not loose track of which node has the highest degree when sorting by degree)
+  <h2>Important Note</h2>
+  Please use this method to sort your arrays while preserving the indices, not recursive2DSortHelper.
+  (See explanation under recursive2DSortHelper)
+  @param arr The array to prepare
+  @return The prepared 2D array
+  */
+  public static int[][] TwoDSort(int[] arr) {
+    int[][] result = new int[arr.length][2];
+    for(int i = 0; i < arr.length; i++) {
+      result[i][0] = arr[i];
+      result[i][1] = i;
+    }
+    return recursiveTwoDSortHelper(result);
+  }
+
+  /**
+  This function sorts any 1D array while preserving the indices
+  <h2>Important Note</h2>
+  This function is called within TwoDSort and therefore is just a helper function to the before mentioned,
+  to sort your array please use TwoDSort instead.
+  @param arr The array to sort
+  @return A sorted 2D array with arr[i][0] being the value and arr[i][1] the original index
+  */
+  public static int[][] recursiveTwoDSortHelper(int[][] arr) {
+    int sortedCount = 0;
+    for(int i = 1; i < arr.length; i++) {
+      if(arr[i-1][0] > arr[i][0]) {
+        int temp0 = arr[i-1][0];
+        int temp1 = arr[i-1][1];
+        arr[i-1][0] = arr[i][0];
+        arr[i-1][1] = arr[i][1];
+        arr[i][0] = temp0;
+        arr[i][1] = temp1;
+      }
+      else {
+        sortedCount++;
+      }
+    }
+    if(sortedCount == arr.length-1) {
+      return arr;
+    }
+    return recursiveTwoDSortHelper(arr);
+  }
 }
