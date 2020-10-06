@@ -109,12 +109,27 @@ public class HelperFunctions {
   }
 
   /**
-  This function returns the most trivial lower bound (1 if the graph consists of only 1 node, 2 if more)
-  @param n Number of vertices
+  This function returns the most trivial lower bound (1 if the graph has no edges, 2 otherwise)
+  @param m Number of edges
   @return Trivial lower bound
   */
-  public static int getTrivialLowerBound(int n) {
-    if(n == 1) return 1;
+  public static int getTrivialLowerBound(int m) {
+    if(m == 0) return 1;
     else return 2;
+  }
+
+  /**
+  This function returns the index of the maximum value in the array
+  @param arr Array to find the maxIndex in
+  @return Index of the maximum value
+  */
+  public static int getMaxIndex(int[] arr) {
+    int maxVal = getMax(arr);
+    for(int i = 0; i < arr.length; i++) {
+      if(arr[i] == maxVal) {
+        return i;
+      }
+    }
+    return -1;
   }
 }
