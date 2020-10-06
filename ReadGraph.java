@@ -121,9 +121,11 @@ public class ReadGraph
 		//!
 		//! there will be n vertices in the graph, numbered 1 to n
 		HelperFunctions HF = new HelperFunctions();
+		int[] colors = new int[n];
 		int[][] res = HF.getAdjacencyMatrix(e, m, n);
 		int[] deg = HF.getDegrees(res);
 		DSatur test = new DSatur();
+		BruteForce bf = new BruteForce();
 		boolean debugthis = true;
 		if(debugthis) {
 		}
@@ -134,5 +136,6 @@ public class ReadGraph
 		long end = System.nanoTime();
 		double duration = (end - start) / 1000000000;
 		System.out.println("Time needed for DSatur: " + duration + " seconds");
+		System.out.println("Result from brute force search: " + bf.ExactChromNumber(n, colors, res));
 	}
 }
