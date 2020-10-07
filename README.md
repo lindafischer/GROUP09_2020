@@ -1,6 +1,6 @@
 # GROUP09_2020
-## How to se the current version:
-  1. Download ReadGraph.java, DSatur.java, BruteForce.java and HelperFunctions.java
+## How to use the current version:
+  1. Download ReadGraph.java, DSatur.java, BruteForce.java, Backtracking.java and HelperFunctions.java
   2. Compile ReadGraph.java (make sure that all the files are in the same directory!)
   3. Run ReadGraph.java
 ### Guide on how to use the helper function file:
