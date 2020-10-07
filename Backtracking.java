@@ -56,7 +56,7 @@ public class Backtracking {
   */
   public static boolean isValid (int k, int colors[], int c) {
     for (int i = 0; i < adj_matrix.length; i++) {
-      if (adj_matrix[k][i] == 1 && c == colors[i]) { // check if there is an edge between the vertices && if the color was already assigned to the vertix nearby
+      if (adj_matrix[k][i] == 1 && c == colors[i]) {//check if there is an edge between the vertices & if the vertix nearby already has color c
         return false;
       }
     }
