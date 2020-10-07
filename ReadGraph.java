@@ -125,15 +125,17 @@ public class ReadGraph
 		int[] deg = HF.getDegrees(res);
 		DSatur ds = new DSatur();
 		BruteForce bf = new BruteForce();
-		boolean debugthis = true;
+		Backtracking bt = new Backtracking();
+		boolean debugthis = false;;
 		if(debugthis) {
 		}
+		else {
 		System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
 		System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
 		long start = System.nanoTime();
 		System.out.println("DSatur upper bound: " + ds.run(deg, res));
 		long end = System.nanoTime();
-		double duration = (end - start) / 1000000000;
+		double duration = (end - start) / 1000000000.0;
 		System.out.println("Time needed for DSatur: " + duration + " seconds");
 		System.out.print("How long do you want to attempt brute-forcing? (in seconds): ");
 		Scanner in = new Scanner(System.in);
@@ -144,7 +146,24 @@ public class ReadGraph
 			System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
 		}
 		else {
+			start = System.nanoTime();
 			System.out.println("Result from brute force search: " + bfResult);
+			System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000 + " seconds.");
 		}
+		System.out.print("How long do you want to attempt backtracking? (in seconds): ");
+		timeLimit = in.nextInt();
+		System.out.println("Attempting backtracking search for " + timeLimit + " seconds...");
+		start = System.nanoTime();
+		int btResult = bt.run(res, timeLimit);
+		System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
+		if(btResult == -1) {
+			System.out.println("Backtracking took too long :(. Please see the lower and upper bound results instead!");
+		}
+		else {
+			start = System.nanoTime();
+			System.out.println("Result from backtracking: " + btResult);
+			System.out.println("Backtracking took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
+		}
+	}
 	}
 }
