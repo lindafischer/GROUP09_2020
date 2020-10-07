@@ -117,7 +117,7 @@ public class HelperFunctions {
     if(n == 1) return 1;
     else if(n % 2 != 0 && m >= 3) return 3;
     else return 2;
-
+  }
   /**
   This function returns the index of the maximum value in the array
   @param arr Array to find the maxIndex in
