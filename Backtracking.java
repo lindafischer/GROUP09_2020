@@ -27,7 +27,7 @@ public class Backtracking {
 	  
 	int [] colors = new int [n];
 	int k = 1; // k = current index/vertix to test
-	int ChromaticNumber = GraphColoring(adj_matrix, k, colors, n)
+	int ChromaticNumber = GraphColoring(adj_matrix, k, colors, n);
 			
 public static int GraphColoring(int adj_matrix[][], int k, int colors[], int n) { //maybe a boolean would be better?
 	for (int c = 1; c <= n; c++) {  // c = current color to test
