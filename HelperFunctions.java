@@ -115,7 +115,7 @@ public class HelperFunctions {
   */
   public static int getTrivialLowerBound(int n, int m) {
     if(n == 1) return 1;
-    else if(n % 2 != 0 && m >= 3) return 3;
+    else if(n % 2 != 0 && m >= 3 && m >= n) return 3;
     else return 2;
   }
   /**
