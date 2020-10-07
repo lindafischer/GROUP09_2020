@@ -113,10 +113,10 @@ public class HelperFunctions {
   @param m Number of edges
   @return Trivial lower bound
   */
-  public static int getTrivialLowerBound(int m) {
-    if(m == 0) return 1;
+  public static int getTrivialLowerBound(int n, int m) {
+    if(n == 1) return 1;
+    else if(n % 2 != 0 && m >= 3) return 3;
     else return 2;
-  }
 
   /**
   This function returns the index of the maximum value in the array
