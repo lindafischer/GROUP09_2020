@@ -141,21 +141,20 @@ public class ReadGraph
 		Scanner in = new Scanner(System.in);
 		int timeLimit = in.nextInt();
 		System.out.println("Attempting brute force search for " + timeLimit + " seconds...");
+		start = System.nanoTime();
 		int bfResult = bf.ExactChromNumber(n, res, timeLimit);
 		if(bfResult == -1) {
 			System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
 		}
 		else {
-			start = System.nanoTime();
 			System.out.println("Result from brute force search: " + bfResult);
-			System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000 + " seconds.");
+			System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
 		}
 		System.out.print("How long do you want to attempt backtracking? (in seconds): ");
 		timeLimit = in.nextInt();
 		System.out.println("Attempting backtracking search for " + timeLimit + " seconds...");
 		start = System.nanoTime();
 		int btResult = bt.run(res, timeLimit);
-		System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
 		if(btResult == -1) {
 			System.out.println("Backtracking took too long :(. Please see the lower and upper bound results instead!");
 		}
