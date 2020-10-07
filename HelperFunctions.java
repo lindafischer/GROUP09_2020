@@ -113,9 +113,8 @@ public class HelperFunctions {
   @param m Number of edges
   @return Trivial lower bound
   */
-  public static int getTrivialLowerBound(int n, int m) {
-    if(n == 1) return 1;
-    else if(n % 2 != 0 && m >= 3 && m >= n) return 3;
+  public static int getTrivialLowerBound(int m) {
+    if(m == 0) return 1;
     else return 2;
   }
   /**
