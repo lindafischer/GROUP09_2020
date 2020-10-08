@@ -117,6 +117,7 @@ public class HelperFunctions {
     if(m == 0) return 1;
     else return 2;
   }
+
   /**
   This function returns the index of the maximum value in the array
   @param arr Array to find the maxIndex in
@@ -130,5 +131,29 @@ public class HelperFunctions {
       }
     }
     return -1;
+  }
+
+  /**
+  This function detects triangular structures and returns a more precise lower bound based on the acquired information
+  @param e An array containing the ColEdge objects of the provided graph
+  @return Lower bound (either 2 if no triangles were detected, 3 if otherwise)
+  */
+  public static int getLowerBoundsByTriangleDetection(ColEdge[] e, TriangleDetection td) {
+    return td.run(e);
+  }
+
+  /**
+  This function checks if a graph is complete
+  @param m Number of edges
+  @param n Number of vertices
+  @return -1 if the graph is not complete, n otherwise (since the chromatic number of a complete graph is n)
+  */
+  public static int checkIfComplete(int m, int n) {
+    if((n * (n-1) / 2) == m) {
+      return n;
+    }
+    else {
+      return -1;
+    }
   }
 }
