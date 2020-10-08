@@ -1,6 +1,7 @@
 import java.util.*;
 public class DSatur {
   public static HelperFunctions lib = new HelperFunctions();
+  public static int[][] adj;
 
   /**
   This function returns a 2-dimensional sorted array where the original indices are preserved
@@ -18,8 +19,8 @@ public class DSatur {
   @param adj The adjacency matrix
   @return The estimated upper bound for the given graph
   */
-  public static int run(int[] deg, int[][] adj) {
-    System.out.println("Running the DSatur algorithm to find an upper bound...");
+  public static int run(int[] deg, int[][] adj_matrix) {
+    adj = adj_matrix;
     int[][] orderedVertices;
     int[] colors = new int[deg.length];
     for(int i = 0; i < colors.length; i++) {
@@ -53,7 +54,7 @@ public class DSatur {
     }
     else{
       //Choose the vertex with the highest degree of saturation
-      int nextVertex = getHighestSaturation(c, adj, v);
+      int nextVertex = getHighestSaturation(c, v);
       //initialize possible colors...
       boolean[] possibleColors = new boolean[adj.length];
       for(int i = 0; i < possibleColors.length; i++) {
@@ -104,7 +105,7 @@ public class DSatur {
   @param v int[] containing the uncolored vertices
   @return vertex with highest degree of saturation
   */
-  public static int getHighestSaturation(int[] c, int[][] adj, int[] v) {
+  public static int getHighestSaturation(int[]c, int[] v) {
     ArrayList<Integer> AdjacentNodes = new ArrayList<>();
     int[] SatScores = new int[adj.length];
     for(int i = 0; i < SatScores.length; i++) {
