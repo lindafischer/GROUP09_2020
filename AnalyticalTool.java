@@ -120,20 +120,42 @@ public class AnalyticalTool
     //! e[m-1] will be the last edge
     //!
     //! there will be n vertices in the graph, numbered 1 to n
+
+    //Initialize the HelperFunctions and Scanner and get the adjacency matrix and degrees array
     HelperFunctions HF = new HelperFunctions();
+    Scanner in = new Scanner(System.in);
     int[][] res = HF.getAdjacencyMatrix(e, m, n);
     int[] deg = HF.getDegrees(res);
+    //Initialize the algorithm classes
     DSatur ds = new DSatur();
-    BruteForce bf = new BruteForce();
+    Bruteforce bf = new Bruteforce();
     Backtracking bt = new Backtracking();
-    boolean debugthis = false;;
-    if(debugthis) {
-    }
-    else {
+    TriangleDetection td = new TriangleDetection();
+    //Perfom check if the graph is complete
+    int completenessCheck = HF.checkIfComplete(m, n);
+		String userChoice = "y";
+    if(completenessCheck != -1) {
+			System.out.println("This is a complete graph, so its chromatic number is: " + completenessCheck);
+			System.out.println("Do you still want to run the other algorithms(Triangle detection, DSatur, Bruteforce and Backtracking)?");
+			System.out.print("(y / n): ");
+			userChoice = in.next();
+		}
+		else {
+			System.out.println("The provided graph is not complete, proceeding with the algorithms...");
+		}
+    //If graph was not complete or the user wants to run the algorithms anyway, run them!
+    if(userChoice.equals("y")) {
       System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
       System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
+      System.out.println("Running triangle detection for a more accurate lower bound...");
+      int triangleDetectionResult = HF.getLowerBoundsByTriangleDetection(e, td, 20); //You can change the time limit for td here if you want.
+			if(triangleDetectionResult == -1) {
+				System.out.println("Triangle detection took longer than 20 seconds :(. Please see the most trivial lower bound instead!");
+			}
+			else {
+				System.out.println("Lower Bounds (after triangle detection): " + triangleDetectionResult);
+			}
       System.out.print("Please choose a time limit (in whole seconds): ");
-      Scanner in = new Scanner(System.in);
       int timeLimit = in.nextInt();
       System.out.print("Please choose how many runs you want to compute: ");
       int userRunNumber = in.nextInt();
@@ -156,7 +178,7 @@ public class AnalyticalTool
         durationDSatur += (end - start) / 1000000.0;
         if(runBF) {
           start = System.nanoTime();
-          bfResult = bf.ExactChromNumber(n, res, timeLimit);
+          bfResult = bf.run(n, m, res, timeLimit);
           end = System.nanoTime();
           durationBF += (end - start) / 1000000.0;
         }
@@ -187,6 +209,10 @@ public class AnalyticalTool
       System.out.println("DSatur average time: " + durationDSatur / runNumber + "ms");
       System.out.println("Backtracking result: " + btResult);
       System.out.println("Backtracking average time: " + durationBT / runNumber + "ms");
+    }
+    else {
+      System.out.println("Ok, exiting now... Goodbye!");
+      System.exit(0);
     }
   }
 }
