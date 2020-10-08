@@ -120,49 +120,67 @@ public class ReadGraph
 		//! e[m-1] will be the last edge
 		//!
 		//! there will be n vertices in the graph, numbered 1 to n
+		Scanner in = new Scanner(System.in);
+		//Initialize the algorithm classes
 		HelperFunctions HF = new HelperFunctions();
-		int[][] res = HF.getAdjacencyMatrix(e, m, n);
-		int[] deg = HF.getDegrees(res);
 		DSatur ds = new DSatur();
 		BruteForce bf = new BruteForce();
 		Backtracking bt = new Backtracking();
-		boolean debugthis = false;;
-		if(debugthis) {
+		//Initialize the adjacency matrix (res) and the degrees array (deg)
+		int[][] res = HF.getAdjacencyMatrix(e, m, n);
+		int[] deg = HF.getDegrees(res);
+		//Perform a check if the graph is complete
+		int completenessCheck = HF.checkIfComplete(m, n);
+		String userChoice = "y";
+		if(completenessCheck != -1) {
+			System.out.println("This is a complete graph, so its chromatic number is: " + completenessCheck);
+			System.out.println("Do you still want to run the other algorithms(Triangle detection, DSatur, Bruteforce and Backtracking)?");
+			System.out.print("(y / n): ");
+			userChoice = in.next();
 		}
 		else {
-		System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
-		System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
-		long start = System.nanoTime();
-		System.out.println("DSatur upper bound: " + ds.run(deg, res));
-		long end = System.nanoTime();
-		double duration = (end - start) / 1000000000.0;
-		System.out.println("Time needed for DSatur: " + duration + " seconds");
-		System.out.print("How long do you want to attempt brute-forcing? (in seconds): ");
-		Scanner in = new Scanner(System.in);
-		int timeLimit = in.nextInt();
-		System.out.println("Attempting brute force search for " + timeLimit + " seconds...");
-		start = System.nanoTime();
-		int bfResult = bf.ExactChromNumber(n, res, timeLimit);
-		if(bfResult == -1) {
-			System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
+			System.out.println("The provided graph is not complete, proceeding with the algorithms...");
 		}
-		else {
-			System.out.println("Result from brute force search: " + bfResult);
-			System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
-		}
-		System.out.print("How long do you want to attempt backtracking? (in seconds): ");
-		timeLimit = in.nextInt();
-		System.out.println("Attempting backtracking search for " + timeLimit + " seconds...");
-		start = System.nanoTime();
-		int btResult = bt.run(res, timeLimit);
-		if(btResult == -1) {
-			System.out.println("Backtracking took too long :(. Please see the lower and upper bound results instead!");
-		}
-		else {
+		//Run the algorithms!
+		if(userChoice.equals("y")) {
+			System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
+			System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
+			System.out.println("Lower Bounds (after triangle detection): "+ HF.getLowerBoundsByTriangleDetection(e));
+			System.out.println("Running the DSatur algorithm to find an upper bound...");
+			long start = System.nanoTime();
+			System.out.println("DSatur upper bound: " + ds.run(deg, res));
+			long end = System.nanoTime();
+			double duration = (end - start) / 1000000000.0;
+			System.out.println("Time needed for DSatur: " + duration + " seconds");
+			System.out.print("How long do you want to attempt brute-forcing? (in seconds): ");
+			int timeLimit = in.nextInt();
+			System.out.println("Attempting brute force search for " + timeLimit + " seconds...");
 			start = System.nanoTime();
-			System.out.println("Result from backtracking: " + btResult);
-			System.out.println("Backtracking took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
+			int bfResult = bf.ExactChromNumber(n, res, timeLimit);
+			if(bfResult == -1) {
+				System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
+			}
+			else {
+				System.out.println("Result from brute force search: " + bfResult);
+				System.out.println("Brute-forcing took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
+			}
+			System.out.print("How long do you want to attempt backtracking? (in seconds): ");
+			timeLimit = in.nextInt();
+			System.out.println("Attempting backtracking search for " + timeLimit + " seconds...");
+			start = System.nanoTime();
+			int btResult = bt.run(res, timeLimit);
+			if(btResult == -1) {
+				System.out.println("Backtracking took too long :(. Please see the lower and upper bound results instead!");
+			}
+			else {
+				start = System.nanoTime();
+				System.out.println("Result from backtracking: " + btResult);
+				System.out.println("Backtracking took " + (System.nanoTime() - start) / 1000000000.0 + " seconds.");
+			}
 		}
-	}
+		else {
+			System.out.println("Ok, exiting now... Goodbye!");
+			System.exit(0);
+		}
 	}
 }
