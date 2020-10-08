@@ -1,16 +1,18 @@
 public class TriangleDetection {
-
+  //For time measuring
   public static long start;
-
+  public static int timeLimit;
   /**
   This function is used to run the triangle detection algorithm
   @param edges An array containing the ColEdge objects of the provided graph
+  @param timeLimitParam The time limit in whole seconds which, if exceeded, will cause the algorithm to abort
   @return The estimated lower bound based on the detection results
   */
-  public static int run(ColEdge[] edges) {
+  public static int run(ColEdge[] edges, int timeLimitParam) {
+    timeLimit = timeLimitParam;
     start = System.nanoTime();
     int lowerBounds = 2;
-    if (edges.length == 1) {
+    if (edges.length == 0) {
       lowerBounds = 1;
     } else if (edges.length == 2) {
       lowerBounds = 2;
@@ -40,7 +42,7 @@ public class TriangleDetection {
     for(int i=0;i<edges.length-1;i++) {
       for(int j=i+1; j<edges.length; j++) {
         double duration = (System.nanoTime() - start) / 1000000000.0;
-        if(duration > 20) {
+        if(duration > timeLimit) {
           return -1;
         }
         ColEdge e1 = edges[i];
@@ -55,8 +57,14 @@ public class TriangleDetection {
     return counter;
   }
 
-  /* This function always compares two vertices with eachother. If two vertices have the same starting vertix, the function will 
-  check whether the two end vertices are also connected. If this is the case then you have a triangle */
+  /**
+  This function always compares two vertices with eachother. If two vertices have the same starting vertix, the function will
+  check whether the two end vertices are also connected. If this is the case then you have a triangle.
+  @param u part
+  @param v
+  @param edgs An array containing the ColEdge objects of the provided graph
+  @return true if two vertices with the same starting point also are connected, false if otherwise
+  */
   public static boolean isInEdges(int u, int v, ColEdge[] edgs) {
     boolean ret = false;
     int i=0;
@@ -67,14 +75,18 @@ public class TriangleDetection {
     return ret;
   }
 
-  /* This function is comparing an arry of edges, by always comparing two edges with eachother. In an ascending order they will be 
-  noted, so this serves later when the funtion isInEdges searches the connection between the two end vertices that were connected with one 
-  starting vertix */
+  /**
+  This function is comparing an arry of edges, by always comparing two edges with eachother. In an ascending order they will be
+  sorted, so this serves later when the funtion isInEdges searches the connection between the two end vertices that were connected with one
+  starting vertix
+  @param e An array containing the ColEdge objects of the provided graph
+  @return sorted <i>ColEdge</i> array
+  */
   public static ColEdge[] bubbleSortEdges(ColEdge[] e) {
     for(int i=0;i<e.length; i++) {
       for(int j=i+1; j<e.length; j++) {
         double duration = (System.nanoTime() - start) / 1000000000.0;
-        if(duration > 20) {
+        if(duration > timeLimit) {
           return new ColEdge[0];
         }
         if (e[i].u>e[j].u) {
