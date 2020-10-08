@@ -1,4 +1,9 @@
 public class TriangleDetection {
+  /**
+  This function is used to run the triangle detection algorithm
+  @param edges An array containing the ColEdge objects of the provided graph
+  @return The estimated lower bound based on the detection results
+  */
   public static int run(ColEdge[] edges) {
     int lowerBounds = 2;
     if (edges.length == 1) {
@@ -11,6 +16,11 @@ public class TriangleDetection {
     return lowerBounds;
   }
 
+  /**
+  This function counts the number of triangles in a given graph
+  @param edg An array containing the ColEdge objects of the provided graph
+  @return The number of triangles
+  */
   public static int getNumberOfTriangles(ColEdge[] edg) {
     int counter=0;
     ColEdge[] edges = new ColEdge[edg.length];
@@ -29,6 +39,7 @@ public class TriangleDetection {
     return counter;
   }
 
+  //NOT SURE WHAT THIS FUNCTION DOES, PLEASE ADD DOCUMENTATION
   public static boolean isInEdges(int u, int v, ColEdge[] edgs) {
     boolean ret = false;
     int i=0;
@@ -39,6 +50,7 @@ public class TriangleDetection {
     return ret;
   }
 
+  //PLEASE ADD DOCUMENTATION
   public static ColEdge[] bubbleSortEdges(ColEdge[] e) {
     for(int i=0;i<e.length; i++) {
       for(int j=i+1; j<e.length; j++) {
