@@ -136,10 +136,12 @@ public class HelperFunctions {
   /**
   This function detects triangular structures and returns a more precise lower bound based on the acquired information
   @param e An array containing the ColEdge objects of the provided graph
+  @param td A <i>TriangleDetection</i> object
+  @param timeLimitParam The time limit in whole seconds which, if exceeded, will cause the algorithm to abort
   @return Lower bound (either 2 if no triangles were detected, 3 if otherwise)
   */
-  public static int getLowerBoundsByTriangleDetection(ColEdge[] e, TriangleDetection td) {
-    return td.run(e);
+  public static int getLowerBoundsByTriangleDetection(ColEdge[] e, TriangleDetection td, int timeLimitParam) {
+    return td.run(e, timeLimitParam);
   }
 
   /**
