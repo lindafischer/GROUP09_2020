@@ -1,17 +1,26 @@
 public class TriangleDetection {
+
+  public static long start;
+
   /**
   This function is used to run the triangle detection algorithm
   @param edges An array containing the ColEdge objects of the provided graph
   @return The estimated lower bound based on the detection results
   */
   public static int run(ColEdge[] edges) {
+    start = System.nanoTime();
     int lowerBounds = 2;
     if (edges.length == 1) {
       lowerBounds = 1;
     } else if (edges.length == 2) {
       lowerBounds = 2;
-    } else if (getNumberOfTriangles(edges)>=1) {
+    }
+    int triangleResult = getNumberOfTriangles(edges);
+    if (triangleResult>=1) {
       lowerBounds = 3;
+    }
+    else if(triangleResult == -1) {
+      lowerBounds = -1;
     }
     return lowerBounds;
   }
@@ -25,8 +34,15 @@ public class TriangleDetection {
     int counter=0;
     ColEdge[] edges = new ColEdge[edg.length];
     edges = bubbleSortEdges(edg);
+    if(edges.length == 0) {
+      return -1;
+    }
     for(int i=0;i<edges.length-1;i++) {
       for(int j=i+1; j<edges.length; j++) {
+        double duration = (System.nanoTime() - start) / 1000000000.0;
+        if(duration > 20) {
+          return -1;
+        }
         ColEdge e1 = edges[i];
         ColEdge e2 = edges[j];
         if (e1.u == e2.u) {
@@ -54,6 +70,10 @@ public class TriangleDetection {
   public static ColEdge[] bubbleSortEdges(ColEdge[] e) {
     for(int i=0;i<e.length; i++) {
       for(int j=i+1; j<e.length; j++) {
+        double duration = (System.nanoTime() - start) / 1000000000.0;
+        if(duration > 20) {
+          return new ColEdge[0];
+        }
         if (e[i].u>e[j].u) {
           ColEdge tmpE = new ColEdge();
           tmpE.u = e[i].u;
