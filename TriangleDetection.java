@@ -55,7 +55,8 @@ public class TriangleDetection {
     return counter;
   }
 
-  //NOT SURE WHAT THIS FUNCTION DOES, PLEASE ADD DOCUMENTATION
+  /* This function always compares two vertices with eachother. If two vertices have the same starting vertix, the function will 
+  check whether the two end vertices are also connected. If this is the case then you have a triangle */
   public static boolean isInEdges(int u, int v, ColEdge[] edgs) {
     boolean ret = false;
     int i=0;
@@ -66,7 +67,9 @@ public class TriangleDetection {
     return ret;
   }
 
-  //PLEASE ADD DOCUMENTATION
+  /* This function is comparing an arry of edges, by always comparing two edges with eachother. In an ascending order they will be 
+  noted, so this serves later when the funtion isInEdges searches the connection between the two end vertices that were connected with one 
+  starting vertix */
   public static ColEdge[] bubbleSortEdges(ColEdge[] e) {
     for(int i=0;i<e.length; i++) {
       for(int j=i+1; j<e.length; j++) {
