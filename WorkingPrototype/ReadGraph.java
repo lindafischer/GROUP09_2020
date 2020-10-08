@@ -124,8 +124,9 @@ public class ReadGraph
 		//Initialize the algorithm classes
 		HelperFunctions HF = new HelperFunctions();
 		DSatur ds = new DSatur();
-		BruteForce bf = new BruteForce();
+		NewBruteForce bf = new NewBruteForce();
 		Backtracking bt = new Backtracking();
+		TriangleDetection td = new TriangleDetection();
 		//Initialize the adjacency matrix (res) and the degrees array (deg)
 		int[][] res = HF.getAdjacencyMatrix(e, m, n);
 		int[] deg = HF.getDegrees(res);
@@ -134,7 +135,7 @@ public class ReadGraph
 		String userChoice = "y";
 		if(completenessCheck != -1) {
 			System.out.println("This is a complete graph, so its chromatic number is: " + completenessCheck);
-			System.out.println("Do you still want to run the other algorithms(Triangle detection, DSatur, Bruteforce and Backtracking)?");
+			System.out.println("Do you still want to run the other algorithms (Triangle detection, DSatur, Bruteforce and Backtracking)?");
 			System.out.print("(y / n): ");
 			userChoice = in.next();
 		}
@@ -145,7 +146,13 @@ public class ReadGraph
 		if(userChoice.equals("y")) {
 			System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
 			System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
-			System.out.println("Lower Bounds (after triangle detection): "+ HF.getLowerBoundsByTriangleDetection(e));
+			int triangleDetectionResult = HF.getLowerBoundsByTriangleDetection(e, td);
+			if(triangleDetectionResult == -1) {
+				System.out.println("Triangle detection took too long :(. Please see the most trivial lower bound instead!");
+			}
+			else {
+				System.out.println("Lower Bounds (after triangle detection): " + triangleDetectionResult);
+			}
 			System.out.println("Running the DSatur algorithm to find an upper bound...");
 			long start = System.nanoTime();
 			System.out.println("DSatur upper bound: " + ds.run(deg, res));
@@ -156,7 +163,7 @@ public class ReadGraph
 			int timeLimit = in.nextInt();
 			System.out.println("Attempting brute force search for " + timeLimit + " seconds...");
 			start = System.nanoTime();
-			int bfResult = bf.ExactChromNumber(n, res, timeLimit);
+			int bfResult = bf.run(res);
 			if(bfResult == -1) {
 				System.out.println("Brute forcing took too long :(. Please see the upper and lower bound results instead!");
 			}

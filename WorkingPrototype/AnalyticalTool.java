@@ -126,6 +126,7 @@ public class AnalyticalTool
     DSatur ds = new DSatur();
     BruteForce bf = new BruteForce();
     Backtracking bt = new Backtracking();
+    TriangleDetection td = new TriangleDetection();
     int completenessCheck = HF.checkIfComplete(m, n);
 		String userChoice = "y";
     if(completenessCheck != -1) {
@@ -140,7 +141,13 @@ public class AnalyticalTool
     if(userChoice == "y") {
       System.out.println("Trivial upper bound: " + HF.getTrivialUpperBound(res));
       System.out.println("Most trivial lower bound is: " + HF.getTrivialLowerBound(m));
-      System.out.println("Lower Bounds (after triangle detection): "+ HF.getLowerBoundsByTriangleDetection(e));
+      int triangleDetectionResult = HF.getLowerBoundsByTriangleDetection(e, td);
+			if(triangleDetectionResult == -1) {
+				System.out.println("Triangle detection took too long :(. Please see the most trivial lower bound instead!");
+			}
+			else {
+				System.out.println("Lower Bounds (after triangle detection): " + triangleDetectionResult);
+			}
       System.out.print("Please choose a time limit (in whole seconds): ");
       Scanner in = new Scanner(System.in);
       int timeLimit = in.nextInt();
