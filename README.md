@@ -1,4 +1,18 @@
 # GROUP09_2020
+
+## Update log:
+- To use a method from HelperFunctions.java, you do not need to initialize a new HelperFunctions object anymore, just call 
+  HelperFunction.whateEverMethodYouWantToCall()
+  
+- You can now get the chromatic number of a graph very easily: just call HelperFunctions.getChromaticNumber(e, m, n, debug), with
+  e being the ColEdge[] array, m being the number of edges in the graph and n being the number of vertices (debug is a boolean, if it is false,
+  then the method will just return the chromatic number, if it is true, then it will also output some information (run-time of the algorithms, how 
+  the program came to the decision, etc.) to the console).
+
+
+
+# Instructions on the old version:
+
 ## How to use the normal version:
   1. Extract the files in the .zip archive to a folder of your choice and navigate into it with your terminal
   2. Compile ReadGraph.java (make sure that all the files are in the same directory!) with the command 'javac ReadGraph.java'
