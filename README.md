@@ -2,7 +2,7 @@
 
 ## Update log:
 - To use a method from HelperFunctions.java, you do not need to initialize a new HelperFunctions object anymore, just call 
-  HelperFunction.whateEverMethodYouWantToCall()
+  HelperFunction.whatEverMethodYouWantToCall()
   
 - You can now get the chromatic number of a graph very easily: just call HelperFunctions.getChromaticNumber(e, m, n, debug), with
   e being the ColEdge[] array, m being the number of edges in the graph and n being the number of vertices (debug is a boolean, if it is false,
