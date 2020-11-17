@@ -21,7 +21,7 @@ public class Timer {
         return time;
     }
 
-    public Long getTimeInSeconds() {
+    public double getTimeInSeconds() {
         return time / 1000;
     }
 
