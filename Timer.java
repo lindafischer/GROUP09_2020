@@ -25,10 +25,6 @@ public class Timer {
         return time / 1000;
     }
 
-    public Long getTimeInNanoSeconds() {
-        return time * 1000000;
-    }
-
     public void setTime(Long time) {
         this.time = time;
     }
