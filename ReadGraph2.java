@@ -43,7 +43,7 @@ public class ReadGraph2
 		//! e will contain the edges of the graph
 		ColEdge e[] = null;
 		
-		HelperFunctions.getAdjacencyMatrix(ColEdge e[]);
+		
 
 		try 	{
 			FileReader fr = new FileReader(inputfile);
@@ -130,6 +130,6 @@ public class ReadGraph2
 		//!
 		//! there will be n vertices in the graph, numbered 1 to n
 		
-		System.out.println("chromaticNumber");
+		System.out.println(HelperFunctions.getAdjacencyMatrix(e, m, n));
 	}
 }
