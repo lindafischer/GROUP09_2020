@@ -42,6 +42,8 @@ public class ReadGraph2
 
 		//! e will contain the edges of the graph
 		ColEdge e[] = null;
+		
+		HelperFunctions.getAdjacencyMatrix(ColEdge e[]);
 
 		try 	{
 			FileReader fr = new FileReader(inputfile);
