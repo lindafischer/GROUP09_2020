@@ -5,7 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
+/**
+* First calls the class Timer
+* Then makes it to appear on the screen 
+* Lastly the timer starts working with the time.start command
+* The time unit in which is returned are seconds
+*/
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
