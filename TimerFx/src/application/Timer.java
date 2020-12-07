@@ -3,6 +3,11 @@ package application;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 
+/**
+* The timer starts to work with start command and stops with stop command
+* Then the get time commands get the time between start and stop
+* And lastly the timeparser returns time in the unit that we want. In this case seconds
+*/
 public class Timer extends Label {
 
 	Long time;
