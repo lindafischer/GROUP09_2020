@@ -1,21 +1,24 @@
 import java.io.*;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
-
+/**
+This class is used to keep track of which nodes are adjacent.
+*/
 class ColEdge
 {
   int u;
   int v;
 }
 
-//!This method is used for the function of uploading the graph in our Game 
-//!This method is used in all the Game Modes in the Game 
-//!This method is being called by OptionsView.java 
-//!-------------------------------------------------------------------------------------------------
 public class Uploader
 {
   public final static boolean DEBUG = false;
   public final static String COMMENT = "//";
+  /**
+  This method is used to get a graph from a file. It shows a file dialog and asks the user to
+  select a .txt file containing informations about the graph. If the graph is too big it shows an alert
+  containing a warning.
+  */
   public static Graph getGraphFromFile() {
     JFileChooser chooser = new JFileChooser(".");
     int fc = chooser.showOpenDialog(null);
