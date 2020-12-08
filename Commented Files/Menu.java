@@ -100,7 +100,7 @@ public class Menu extends Application
 
   /**
    This function stops the Bruteforce algorithm and the timer (threads), when the user decides to close the application window.
-   This is needed in order to avoid to drain the computing power.
+   This is needed in order to avoid draining the computing power.
    */
   public void stop() {
     //Stop the timer
