@@ -1,41 +1,28 @@
-# GROUP09_2020
+#README
 
-## Update log:
-- To use a method from HelperFunctions.java, you do not need to initialize a new HelperFunctions object anymore, just call 
-  HelperFunction.whatEverMethodYouWantToCall()
-  
-- You can now get the chromatic number of a graph very easily: just call HelperFunctions.getChromaticNumber(e, m, n, debug), with
-  e being the ColEdge[] array, m being the number of edges in the graph and n being the number of vertices (debug is a boolean, if it is false,
-  then the method will just return the chromatic number, if it is true, then it will also output some information (run-time of the algorithms, how 
-  the program came to the decision, etc.) to the console).
+##Installation:
 
+	###1. Download the newest version of JavaFX to your system according to this guide: https://openjfx.io/openjfx-docs/#install-java
+	
+	###2. Make sure your environment variable is called PATH_TO_FX and set to the path of lib folder in the javafx files you downloaded
+	   in the previous step.
 
+	###3. For MacOS/Linux:
 
-# Instructions on the old version:
+		- Open your terminal, navigate to the project's folder and type in the following commands:
 
-## How to use the normal version:
-  1. Extract the files in the .zip archive to a folder of your choice and navigate into it with your terminal
-  2. Compile ReadGraph.java (make sure that all the files are in the same directory!) with the command 'javac ReadGraph.java'
-  3. Run ReadGraph.java using the command 'java ReadGraph <path to graph file>'
-Have fun!
+			- "chmod +x run.sh"
+			- "./run"
 
-A few things about the program:
+	   ###For Windows:
 
-You can choose your own time limit for brute forcing and backtracking (in seconds). The program will prompt
-you for input.
+		- Either double click on the file run.bat or open your terminal, navigate into the project's folder and type in "run"
 
-The triangle detection has a hard coded time limit of 20 seconds. If you want to change this, you can do so by changing it in the ReadGraph.java file
-at line 150 (in the line above there is a comment saying you can change this value).
+#Troubleshooting:
 
-If the program detects that a graph is complete it will ask whether you want to continue with the other algorithms nevertheless. Simply tpye in 'y' or 'n'
-when prompted.
+##If you encounter any issues regarding step 3, you need to run the app yourself by running the following commands:
 
-## How to use the AnalyticalTool
+  "javac --module-path %PATH_TO_FX% --add-modules javafx.controls Menu.java"
+  "java --module-path %PATH_TO_FX% --add-modules javafx.controls Menu"
 
-Follow all steps as for the normal version, except you compile and run 'AnalyticalTools.java' instead.
-
-About this tool:
-This tool was created to evaluate the algorithms' efficiency. It will prompt for a time limit and a number of runs and will run the algorithms that often.
-After the runs it will take the average of the time needed for every single run and will display it for every algorithm alongside the result respectively.
-
-Note: The custom_graphs directory contains graphs we made ourselves to test our program.
+Note that you need to substitute %PATH_TO_FX% with the path to the lib folder of your javafx installation if you encounter any issues setting the PATH-variable
