@@ -20,8 +20,8 @@
 # Troubleshooting:
 
 ## If you encounter any issues regarding step 3, you need to run the app yourself by running the following commands:
-```
-  "javac --module-path %PATH_TO_FX% --add-modules javafx.controls Menu.java"
-  "java --module-path %PATH_TO_FX% --add-modules javafx.controls Menu"
-```
+
+  - ```javac --module-path %PATH_TO_FX% --add-modules javafx.controls Menu.java```
+  - ```java --module-path %PATH_TO_FX% --add-modules javafx.controls Menu```
+  
 ### Note that you need to substitute %PATH_TO_FX% with the path to the lib folder of your javafx installation if you encounter any issues setting the PATH-variable
