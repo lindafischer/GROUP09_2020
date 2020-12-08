@@ -4,9 +4,11 @@
 
 ### 1. Download the newest version of JavaFX to your system according to this guide: https://openjfx.io/openjfx-docs/#install-java
 	
-### 2. Make sure your environment variable is called PATH_TO_FX and set to the path of lib folder in the javafx files you downloaded in the previous step.
+### 2. Make sure your environment variable is called PATH_TO_FX and set to the path of the lib folder in the javafx files you downloaded in the previous step (See the manual linked above).
 
-### 3. For MacOS/Linux:
+### 3. Download this repository and unzip it
+
+### 4. For MacOS/Linux:
 
 - Open your terminal, navigate to the project's folder and type in the following commands:
 
@@ -15,7 +17,7 @@
 
 ###    For Windows:
 
-- Either double click on the file run.bat or open your terminal, navigate into the project's folder and type in "run"
+- Either double click on the file run.bat or open your terminal, navigate into the project's folder and type in ```run```
 
 # Troubleshooting:
 
