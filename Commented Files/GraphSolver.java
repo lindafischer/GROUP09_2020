@@ -1,6 +1,6 @@
 public class GraphSolver {
   /***
-   *This fucntion run checks the completion of the graph
+   *This method checks the completion of the graph
    * it also runs all the internal algorithms used
    * to compute exact number,lowerbound,upperbound
    * @param res the adjacency matrix of the given grah
