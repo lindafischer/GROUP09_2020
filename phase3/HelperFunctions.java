@@ -178,4 +178,30 @@ public class HelperFunctions {
     }
     return result;
   }
+  public static boolean isSubset(ArrayList<Vertex> a1, ArrayList<Vertex> a2) {
+    for(int i = 0; i < a1.size(); i++) {
+      if(!a2.contains(a1.get(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
+  public static int[][] getAdjacencyMatrix(ArrayList<Vertex> vertices) {
+    int[][] adj_matrix = new int[vertices.size()][vertices.size()];
+    double edgeCount = 0;
+    for(Vertex v : vertices) {
+      for(Vertex w : v.getNeighbours()) {
+        adj_matrix[v.getId()][w.getId()] = 1;
+        adj_matrix[w.getId()][v.getId()] = 1;
+      }
+    }
+    for(int i = 0; i < adj_matrix.length; i++) {
+      for(int j = i; j < adj_matrix.length; j++) {
+        if(adj_matrix[i][j] == 1) {
+          edgeCount++;
+        }
+      }
+    }
+    return adj_matrix;
+  }
 }

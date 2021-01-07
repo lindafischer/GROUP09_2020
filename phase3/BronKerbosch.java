@@ -2,10 +2,11 @@ import java.util.ArrayList;
 public class BronKerbosch {
   public static ArrayList<Vertex> recordClique = new ArrayList<Vertex>();
   public static ArrayList<Vertex> V;
-  public static int run(ArrayList<Vertex> vertices) {
+  public static ArrayList<Vertex> run(ArrayList<Vertex> vertices) {
 
-    recursivePart(new ArrayList<Vertex>(), vertices, new ArrayList<Vertex>());
-    return recordClique.size();
+    ArrayList<Vertex> verticesTmp = (ArrayList<Vertex>) vertices.clone();
+    recursivePart(new ArrayList<Vertex>(), verticesTmp, new ArrayList<Vertex>());
+    return recordClique;
   }
   public static void recursivePart(ArrayList<Vertex> R, ArrayList<Vertex> P, ArrayList<Vertex> X) {
     if(P.size() == 0 && X.size() == 0) {

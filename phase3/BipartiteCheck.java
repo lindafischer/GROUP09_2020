@@ -27,6 +27,13 @@ public class BipartiteCheck {
       }
       return recursivePart(queue, vertices);
     }
+    for(int i = 0; i < vertices.length; i++) {
+      if(vertices[i] == 0) {
+        vertices[i] = 1;
+        queue.add(i);
+        return recursivePart(queue, vertices);
+      }
+    }
     return true;
   }
 }

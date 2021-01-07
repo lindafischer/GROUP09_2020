@@ -131,16 +131,8 @@ public class ReadGraph
 		}
 		System.out.println("Not complete!");
 		System.out.println("Starting tree detection...");
-		long start = System.nanoTime();
-		if(TreeDetection.run(adj_matrix)) {
-			System.out.println("Tree detection took " + ((System.nanoTime()-start)/1000000.0) + "ms");
-			chromaticNumber = 2;
-			System.out.println("This is a tree, therefore its chromatic number is 2");
-			eval(programStart);
-		}
-		System.out.println("Not a tree!");
 		System.out.println("Starting bipartite check...");
-		start = System.nanoTime();
+		long start = System.nanoTime();
 		boolean isBipartite = BipartiteCheck.run(adj_matrix);
 		double durationBipartite = (System.nanoTime() - start) / 1000000.0;
 		if(isBipartite) {
@@ -152,16 +144,22 @@ public class ReadGraph
 		System.out.println("Graph is not bipartite!");
 		Graph g = new Graph(e, m, n);
 		ArrayList<Vertex> vertices = g.getVertices();
+		System.out.println("Removing disconnected vertices...");
+		adj_matrix = Reduce.removeDisconnectedVertices(vertices);
 		System.out.println("Running Bron-Kerbosch with Tomita pivoting...");
 		start = System.nanoTime();
-		int lowerBound = BronKerbosch.run(vertices);
+		ArrayList<Vertex> largestClique = BronKerbosch.run(vertices);
 		double duration = System.nanoTime() - start / 1000000.0;
 		System.out.println("Bron-Kerbosch with Tomita pivoting took: " + duration);
+		int lowerBound = largestClique.size();
 		System.out.println("Result from Bron-Kerbosch: " + lowerBound);
-		int[] degrees = HelperFunctions.getDegrees(g.adj);
+		//Graph reduction
+		adj_matrix = Reduce.run(largestClique, vertices, false);
+		System.out.println("Reduced the graph by " + (n-adj_matrix.length) + " vertices.");
+		int[] degrees = HelperFunctions.getDegrees(adj_matrix);
 		System.out.println("Running the DSatur algorithm to find an upper bound...");
 		start = System.nanoTime();
-		int upperBound = DSatur.run(degrees, g.adj);
+		int upperBound = DSatur.run(degrees, adj_matrix);
 		duration = (System.nanoTime() - start) / 1000000.0;
 		System.out.println("Result from DSatur: " + upperBound);
 		System.out.println("DSatur took " + duration + "ms");
