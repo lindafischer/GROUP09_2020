@@ -4,6 +4,11 @@ import java.util.Arrays;
 public class BipartiteCheck {
   public static int[][] adj;
 
+  /**
+   *function for running Bipartite Detection
+   * @param adj_matrix 2d array containing vertices and their adajcency
+   * @return true if graph bipartite, false if not
+   */
   public static boolean run(int[][] adj_matrix) {
     int[] vertices = new int[adj_matrix.length];
     adj = adj_matrix;
@@ -12,6 +17,13 @@ public class BipartiteCheck {
     queue.add(0);
     return recursivePart(queue, vertices);
   }
+
+  /**
+   *function classifies graph as bipartite or not
+   * @param queue ArrayList for FIFO approach
+   * @param vertices array contains their colors, 1 or 0
+   * @return true if graph bipartite, false if not
+   */
   private static boolean recursivePart(ArrayList<Integer> queue, int[] vertices) {
     if(queue.size() != 0) {
       int currV = queue.get(0); //Works based on FIFO (first in first out)

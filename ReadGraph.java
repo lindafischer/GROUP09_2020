@@ -124,21 +124,27 @@ public class ReadGraph
 		//! e[m-1] will be the last edge
 		//!
 		//! there will be n vertices in the graph, numbered 1 to n
+
+		//Get the time when the program starts evaluating the graph
 		long programStart = System.nanoTime();
+		//And start getting some information about the graph!
 		int[][] adj_matrix = HelperFunctions.getAdjacencyMatrix(e, m, n);
 		int chromaticNumber = 0;
+		//Check if it is complete...
 		int completenessCheck = HelperFunctions.checkIfComplete(m, n);
+		//If it is, we know the chromatic numberand can stop!
 		if(completenessCheck != -1) {
 			chromaticNumber = completenessCheck;
 			System.out.println("This is a complete graph with " + completenessCheck + " nodes, therefore its chromatic number is " + completenessCheck);
 			stop(programStart);
 		}
 		System.out.println("Not complete!");
-		System.out.println("Starting tree detection...");
+		//Check if it is bipartite...
 		System.out.println("Starting bipartite check...");
 		long start = System.nanoTime();
 		boolean isBipartite = BipartiteCheck.run(adj_matrix);
 		double durationBipartite = (System.nanoTime() - start) / 1000000.0;
+		//If it is, we know the chromatic number and can stop!
 		if(isBipartite) {
 			chromaticNumber = 2;
 			System.out.println("This graph is bipartite, therefore its chromatic number must be 2!");
@@ -146,9 +152,10 @@ public class ReadGraph
 			stop(programStart);
 		}
 		System.out.println("Graph is not bipartite!");
+		//If it is neither bipartite nor complete, then we can start getting some more information and reducing it!
 		Graph g = new Graph(e, m, n);
 		ArrayList<Vertex> vertices = g.getVertices();
-		System.out.println("Removing disconnected vertices...");
+		//Get the maximal clique using Bron-Kerbosch with Tomita pivot selection
 		System.out.println("Running Bron-Kerbosch with Tomita pivoting...");
 		start = System.nanoTime();
 		ArrayList<Vertex> largestClique = BronKerbosch.run(vertices);
@@ -156,25 +163,29 @@ public class ReadGraph
 		System.out.println("Bron-Kerbosch with Tomita pivoting took: " + duration);
 		int lowerBound = largestClique.size();
 		System.out.println("Result from Bron-Kerbosch: " + lowerBound);
-		//Graph reduction
+		//Graph reduction (removing disconnected vertices and reducing the graph basedon procedure 1 and 2 mentioned in the report)
 		adj_matrix = Reduce.run(largestClique, vertices, false);
 		System.out.println("Reduced the graph by " + (n-adj_matrix.length) + " vertices. It now has " + adj_matrix.length + " vertices");
 		int[] degrees = HelperFunctions.getDegrees(adj_matrix);
 		m = HelperFunctions.getUpdatedEdgeCount(adj_matrix);
+		//Get a partial coloring where the maximal clique is already colored
 		int[] partialColoring = HelperFunctions.colorClique(largestClique, adj_matrix.length, m);
+		//Special case: If the graph is complete after reduction...
 		if(partialColoring.length == 0) {
+			//...we know the chromatic number and can stop!
 			System.out.println("The reduced graph appears to be complete, so the chromatic number is " + adj_matrix.length);
 			stop(programStart);
 		}
-		//Backtracking
+		//Run Backtracking...
 		System.out.println("Trying coloring the graph using backtracking...");
 		start = System.nanoTime();
 		bestUpperBound = BacktrackingV2.run(lowerBound, adj_matrix, false);
 		duration = (System.nanoTime() - start) / 1000000.0;
 		System.out.println("Result from Backtracking: " + bestUpperBound);
 		System.out.println("Backtracking took " + duration + "ms");
+		//And evaluate what information we can get from that!
 		eval(lowerBound, bestUpperBound, programStart);
-		//DSatur
+		//Run DSatur...
 		System.out.println("Running the DSatur algorithm to find an upper bound...");
 		start = System.nanoTime();
 		int[] DSaturColoring = DSatur.run(degrees, adj_matrix);
@@ -182,59 +193,62 @@ public class ReadGraph
 		duration = (System.nanoTime() - start) / 1000000.0;
 		System.out.println("Result from DSatur: " + DSaturResult);
 		System.out.println("DSatur took " + duration + "ms");
+		//And evaluate what information we can get from that!
 		eval(lowerBound, DSaturResult, programStart);
-		//RLF
+		//Run RLF...
 		System.out.println("Running RLF...");
 		start = System.nanoTime();
 		int RLFResult = RLF.run(vertices);
 		duration = (System.nanoTime()-start) / 1000000.0;
 		System.out.println("Result from RLF: " + RLFResult);
 		System.out.println("RLF took " + duration + "ms");
+		//And evaluate what information we can get from that!
 		eval(lowerBound, RLFResult, programStart);
-		//TabuCol
-		System.out.println("Running TabuCol...");
-		start = System.nanoTime();
-		int tabuSearchResult = TabuSearch.run(adj_matrix, DSaturColoring, 100000000, 1000, bestUpperBound, lowerBound, 0.6, 7);
-		duration = (System.nanoTime()-start) / 1000000.0;
-		if(tabuSearchResult == -1) {
-			System.out.println("TabuCol did not find a solution without conflicts in time.");
-		}
-		else {
-			System.out.println("Result from TabuCol: " + tabuSearchResult);
-			System.out.println("TabuCol took " + duration + "ms");
-			eval(lowerBound, tabuSearchResult, programStart);
-		}
 		System.out.println("Current best lower bound: " + lowerBound);
 		System.out.println("Current best upper bound: " + bestUpperBound);
-		//Bruteforce
+		//Run Bruteforce to try and get the chromatic number and/or get the bounds closer
 		System.out.println("No matching lower and upper bounds were found, so starting bruteforcing from " + lowerBound + " to " + bestUpperBound);
 		for(int i = lowerBound; i <= bestUpperBound; i++) {
+			//Check what we know at the current time step... (with the current best lower bound)
 			eval(lowerBound, bestUpperBound, programStart);
 			System.out.println("Currently trying " + i + "-coloring...");
+			//Try an i-coloring of the graph...
 			int tmp = Bruteforce.Colorings(0, i, partialColoring, adj_matrix.length, adj_matrix);
+			//If a solution with i colors is found, we know the chromatic number and can report it and stop the program!
 			if(tmp == 1) {
 				System.out.println("Found the chromatic number using bruteforcing! It is " + i);
 				stop(programStart);
 			}
+			//Otherwise, we can update the lower bound because we ruled out an i-coloring as impossible
 			else {
 				lowerBound++;
 				System.out.println("Current best lower bound: " + lowerBound);
 			}
 		}
 	}
-
+	/**
+	This method is used to evaluate information about the graph gathered at specific points during execution of our program.
+	@param lowerBound The best currently known lower bound
+	@param upperBound An upper bound to check whether it is better than the best currently known upper bound.
+	@param programStart The time when the program was started (of type <i>long</i>)
+	*/
 	private static void eval(int lowerBound, int upperBound, long programStart) {
+		//If the lower bound and upper bound match, then we know we found the chromatic number!
 		if(lowerBound == upperBound) {
 			chromaticNumber = upperBound;
 			System.out.println("Matching lower and upper bounds were found!");
 			System.out.println("The chromatic number is " + chromaticNumber);
 			stop(programStart);
 		}
+		//Otherwise, update the upper bound if it is better than the best currently known upper bound
 		else if(upperBound < bestUpperBound) {
 			bestUpperBound = upperBound;
 		}
 	}
-
+	/**
+	This method is used to stop the program and report the chromatic number and the time needed to find it
+	@programStart The time when the program was started (of type <i>long</i>) to evaluate how long it took to find the chromatic number
+	*/
 	private static void stop(long programStart) {
 		System.out.println("The time needed to find the chromatic number is " + ((System.nanoTime() - programStart) / 1000000.0) + "ms");
 		System.exit(0);

@@ -149,6 +149,12 @@ public class HelperFunctions {
       return -1;
     }
   }
+  /**
+  This method is used to get the union of two ArrayLists containing Vertex objects resembling sets of vertices
+  @param a1 The first ArrayList
+  @param a2 The second ArrayList
+  @return An ArrayList<Vertex> resembling the union of a1 and a2
+  */
   public static ArrayList<Vertex> getUnion(ArrayList<Vertex> a1, ArrayList<Vertex> a2) {
     ArrayList<Vertex> result = (ArrayList<Vertex>) a1.clone();
     for(int i = 0; i < a2.size(); i++) {
@@ -158,6 +164,12 @@ public class HelperFunctions {
     }
     return result;
   }
+  /**
+  This metohd is used to get the intersection of two ArrayLists containing Vertex objects resembling sets of vertices
+  @param a1 The first set of vertices
+  @param a2 The second set of vertices
+  @return An ArrayList<Vertex> resembling the intersect of a1 and a2
+  */
   public static ArrayList<Vertex> getIntersect(ArrayList<Vertex> a1, ArrayList<Vertex> a2) {
     ArrayList<Vertex> result = new ArrayList<Vertex>();
     for(int i = 0; i < a1.size(); i++) {
@@ -168,6 +180,12 @@ public class HelperFunctions {
     }
     return result;
   }
+  /**
+  This method is used to get the set minus of two ArrayLists containing Vertex objects resembling sets of vertices
+  @param a1 The first set of vertices
+  @param a2 The second set of vertices
+  @return An ArrayList<Vertex> resembling the set minus of a1 and a2
+  */
   public static ArrayList<Vertex> getSetMinus(ArrayList<Vertex> a1, ArrayList<Vertex> a2) {
     ArrayList<Vertex> result = (ArrayList<Vertex>) a1.clone();
     for(int i = 0; i < a2.size(); i++) {
@@ -178,6 +196,12 @@ public class HelperFunctions {
     }
     return result;
   }
+  /**
+  This method is used to check whether a given set is a subset of another set of vertices
+  @param a1 An ArrayList containing Vertex objects resembling the subset candidate
+  @param a2 An ArrayList containing Vertex objects resembling the superset candidate
+  @return true if a1 is a subset of a2, false otherwise
+  */
   public static boolean isSubset(ArrayList<Vertex> a1, ArrayList<Vertex> a2) {
     for(int i = 0; i < a1.size(); i++) {
       if(!a2.contains(a1.get(i))) {
@@ -186,6 +210,13 @@ public class HelperFunctions {
     }
     return true;
   }
+  /**
+  This method overloads the other getAdjacencyMatrix method in this file (see at the top of this file).
+  It creates an adjacency matrix for a graphg based on an ArrayList containing all the vertices in that graph.
+  This method is used to create the adjacency matrix for the graph after reduction.
+  @param vertices An ArrayList containing all Vertex objects that contribute to the graph
+  @return A 2-dimensional array of integers resembling the adjacency matrix corresponding to the given ArrayList of Vertex objects
+  */
   public static int[][] getAdjacencyMatrix(ArrayList<Vertex> vertices) {
     int[][] adj_matrix = new int[vertices.size()][vertices.size()];
     for(Vertex v : vertices) {
@@ -196,6 +227,11 @@ public class HelperFunctions {
     }
     return adj_matrix;
   }
+  /**
+  This method is used to count the edges in a graph after reduction.
+  @param adj_matrix The reduced graph's adjacency matrix
+  @return An integer resembling the number of edges in that graph
+  */
   public static int getUpdatedEdgeCount(int[][] adj_matrix) {
     int edgeCount = 0;
     for(int i = 0; i < adj_matrix.length; i++) {
@@ -207,7 +243,13 @@ public class HelperFunctions {
     }
     return edgeCount;
   }
-
+  /**
+  This method is used to color the given clique. It also checks whether the given graph is complete. This is used after graph reduction.
+  @param largestClique An ArrayList containing all the Vertex objects that are in the maximal clique
+  @param n The number of vertices in the graph whic largestClique is part of
+  @param m The number of edges in the graph
+  @return An array of integers resembling the partial coloring of the graph where the maximal clique is colored
+  */
   public static int[] colorClique(ArrayList<Vertex> largestClique, int n, int m) {
     int completenessCheck = HelperFunctions.checkIfComplete(m, n);
     if(completenessCheck != -1) {
