@@ -9,3 +9,7 @@ Please download this repository and navigate into the root folder of this projec
 ### 2. Report version
 
  - To run the report version of our code with verbose output, just type in "java -jar 09-CodeThirdPhase.jar %Graph_File%" and hit enter. (See above for substitution rules on "%Graph_File%"). 
+
+
+# Note:
+To inspect our code, navigate into the corresponding folder ("ReportCode" for the code run when executing "09-CodeThirdPhase.jar" and "TournamentCode" for the code to be used in our tournament version. The only difference between these two folders is the "ReadGraph.java" / "ReadGraphTournament.java" file, which has its only differences in what it prints in the terminal/cmd).
